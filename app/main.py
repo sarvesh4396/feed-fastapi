@@ -65,7 +65,9 @@ app.include_router(
 @callback_router.get("/push")
 async def push_message(user:User = Depends(current_active_user)):
     message = f"User {user.email} Logged in"
+    await notifier.push(None)
     await notifier.push(message)
+    return message
 
 app.include_router(callback_router)
 
